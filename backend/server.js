@@ -2,7 +2,6 @@ require("dotenv").config();
 require("express-async-errors");
 
 //config
-const ApplicationConfig = require("./config");
 const config = require("./config");
 
 //imports********************
