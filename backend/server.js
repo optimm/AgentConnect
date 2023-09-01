@@ -16,6 +16,7 @@ const morgan = require("morgan");
 const connectDb = require("./db/connect");
 
 //importing routers
+const authRouter = require("./routes/auth");
 
 // error handler middleware
 const notFoundMiddleware = require("./middleware/not-found");
@@ -40,6 +41,7 @@ app.use(morgan("dev"));
 app.get("/", (req, res) => {
   res.send("Hello");
 });
+app.use("/api/v1/auth", authRouter);
 
 // error handler
 app.use(notFoundMiddleware);

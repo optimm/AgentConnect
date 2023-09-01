@@ -15,9 +15,7 @@ const register = async (req, res) => {
     !name ||
     name === "" ||
     !password ||
-    password === "" ||
-    !username ||
-    username === ""
+    password === ""
   ) {
     throw new BadRequestError("Please provide name, email, password and role");
   }
@@ -26,7 +24,7 @@ const register = async (req, res) => {
   if (user) {
     throw new BadRequestError("Email address already in use");
   }
-  user = await User.create({ name, email, username, password, role });
+  user = await User.create({ name, email, password, role });
   res.status(StatusCodes.CREATED).json({ success: true, msg: "Registered" });
 };
 
@@ -36,7 +34,7 @@ const login = async (req, res) => {
   if (!email || email === "" || !password || password === "") {
     throw new BadRequestError("Please provide email and password");
   }
-  
+
   const user = await User.findOne({ email }).select("+password");
 
   if (!user) {
@@ -68,14 +66,13 @@ const login = async (req, res) => {
       data: {
         name: user.name,
         email: user.email,
-        avatar: user.avatar,
+        role: user.role,
         _id: user._id,
       },
     });
 };
 
 const logout = async (req, res) => {
-  const { userId } = req.user;
   res
     .status(StatusCodes.OK)
     .cookie("token", null, {
@@ -85,4 +82,10 @@ const logout = async (req, res) => {
       httpOnly: true,
     })
     .json({ success: true, msg: "Logged out" });
+};
+
+module.exports = {
+  register,
+  login,
+  logout,
 };
