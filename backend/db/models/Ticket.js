@@ -14,9 +14,9 @@ const ticketSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  heading: {
+  title: {
     type: String,
-    required: [true, "Please provide a ticket heading"],
+    required: [true, "Please provide a ticket title"],
   },
   status: {
     type: String,

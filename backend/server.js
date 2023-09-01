@@ -17,6 +17,7 @@ const connectDb = require("./db/connect");
 
 //importing routers
 const authRouter = require("./routes/auth");
+const ticketRouter = require("./routes/ticket");
 
 // error handler middleware
 const notFoundMiddleware = require("./middleware/not-found");
@@ -29,7 +30,7 @@ app.use(
   cors({
     credentials: true,
     origin: `${config.frontendUrl}`,
-    sameSite: "none",
+    // sameSite: "none",
   })
 );
 app.use(express.json({ limit: "4mb" }));
@@ -42,6 +43,7 @@ app.get("/", (req, res) => {
   res.send("Hello");
 });
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/tickets", ticketRouter);
 
 // error handler
 app.use(notFoundMiddleware);
