@@ -1,13 +1,15 @@
 const formatMessages = (messages, userId) => {
-  messages.forEach((message) => {
+  const updatedMessages = messages.map((message) => {
+    message = message.toObject();
     if (message.sender == userId) {
       message.mine = true;
     } else {
       message.mine = false;
     }
+    return message;
   });
 
-  return messages;
+  return updatedMessages;
 };
 
 module.exports = formatMessages;
