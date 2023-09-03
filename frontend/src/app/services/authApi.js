@@ -34,8 +34,30 @@ export const authApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    checkMyAuth: builder.query({
+      query: () => {
+        return {
+          url: "auth/me",
+          method: "GET",
+        };
+      },
+      providesTags: ["CheckAuth"],
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(authenticateMe({ isAuthenticated: true, data: data?.data }));
+        } catch (error) {
+          dispatch(authenticateMe({ isAuthenticated: false, myData: {} }));
+        }
+      },
+    }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useLogoutMutation } =
-  authApi;
+export const {
+  useRegisterMutation,
+  useLoginMutation,
+  useLogoutMutation,
+  useCheckMyAuthQuery,
+} = authApi;

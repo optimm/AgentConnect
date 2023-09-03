@@ -13,6 +13,9 @@ import { AiFillEye, AiFillEyeInvisible, AiFillHome } from "react-icons/ai";
 import { useRegisterMutation } from "../../app/services/authApi";
 import { useFormik } from "formik";
 import registerSchema from "./schema";
+import { trimAll } from "../../utils/utilFunctions";
+import { createNotification } from "../notification/index";
+import { ButtonLoader } from "../loader";
 
 const SignupComponent = ({ role }) => {
   const [register, { error: requestError, isLoading, isError }] =

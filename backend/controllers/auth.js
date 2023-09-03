@@ -84,8 +84,15 @@ const logout = async (req, res) => {
     .json({ success: true, msg: "Logged out" });
 };
 
+//To check my auth and send back my data
+const checkMyAuth = async (req, res) => {
+  const me = await User.findById(req.user.userId).select("name email role");
+  res.status(StatusCodes.OK).json({ success: true, data: me });
+};
+
 module.exports = {
   register,
   login,
   logout,
+  checkMyAuth,
 };

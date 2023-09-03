@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { flexcv } from "../globalStyle";
+import { flexcv } from "../../styles/globalStyle";
 
 export const FullScreenLoaders = styled.div`
   ${flexcv}
