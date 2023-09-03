@@ -1,6 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   MainCard,
   MainCardForm,
@@ -8,16 +7,18 @@ import {
   MainCardOverLay,
   MainHomeButton,
   MainWrapper,
-} from "./styles";
+} from "../login/styles";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { AiFillEye, AiFillEyeInvisible, AiFillHome } from "react-icons/ai";
-import { useLoginMutation } from "../../app/services/authApi";
+import { useRegisterMutation } from "../../app/services/authApi";
 import { useFormik } from "formik";
-import loginSchema from "./schema";
+import registerSchema from "./schema";
 
-const LoginComponent = ({ role }) => {
-  const [login, { error: requestError, isError, isLoading }] =
-    useLoginMutation();
+const SignupComponent = ({ role }) => {
+  const [register, { error: requestError, isLoading, isError }] =
+    useRegisterMutation();
   const navigate = useNavigate();
+
   const {
     touched,
     errors,
@@ -28,21 +29,23 @@ const LoginComponent = ({ role }) => {
     resetForm,
   } = useFormik({
     initialValues: {
+      name: "",
+      username: "",
       email: "",
       password: "",
     },
-    validationSchema: loginSchema,
+    validationSchema: registerSchema,
     onSubmit: async (values) => {
+      values = trimAll(values);
       try {
-        setShowPassword(false);
-        const data = await login({ body: values }).unwrap();
+        const data = await register({ body: { ...values, role } }).unwrap();
         resetForm();
-        createNotification(`Welcome ${data?.data?.name}`, "success", 2000);
-        const { _id: id } = data?.data;
-        navigate(`/users/${id}`);
+        createNotification(data.msg, "success", 2000);
+        navigate(`/login/${role}`);
       } catch (error) {}
     },
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
@@ -55,9 +58,33 @@ const LoginComponent = ({ role }) => {
           </Link>
         </MainHomeButton>
         <MainCard>
-          <MainCardForm onSubmit={handleSubmit} login>
+          <MainCardImage url="/images/login.jpg">
+            <MainCardOverLay>
+              <div className="heading">Join Branch International Today</div>
+              <div className="text">
+                Join branch international query platform
+              </div>
+              <div className="text">Already have an account ?</div>
+              <Link to={`/login/${role}`}>
+                <button className="card-button">Login</button>
+              </Link>
+            </MainCardOverLay>
+          </MainCardImage>
+          <MainCardForm onSubmit={handleSubmit}>
             <div className="inner">
-              <div className="form-head">Login</div>
+              <div className="form-head">Register</div>
+              <TextField
+                name="name"
+                label="Name"
+                variant="standard"
+                color="secondary"
+                className="form-input"
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.name && errors.name ? true : false}
+                helperText={touched.name && errors.name ? errors.name : null}
+              />
               <TextField
                 name="email"
                 label="Email"
@@ -108,29 +135,17 @@ const LoginComponent = ({ role }) => {
                 type="submit"
                 disabled={isLoading}
               >
-                {isLoading ? <ButtonLoader /> : "Login"}
+                {isLoading ? <ButtonLoader /> : "Register"}
               </button>
               {isError && (
                 <div className="error">{requestError?.data?.msg}</div>
               )}
             </div>
           </MainCardForm>
-          <MainCardImage url="/images/login.jpg">
-            <MainCardOverLay>
-              <div className="heading">Welcome {role}</div>
-              <div className="text">
-                Login and you can raise any and all queries you want to.
-              </div>
-              <div className="text">Don&apos;t have an account ?</div>
-              <Link to={`/register/${role}`}>
-                <button className="card-button">{`Register`}</button>
-              </Link>
-            </MainCardOverLay>
-          </MainCardImage>
         </MainCard>
       </MainWrapper>
     </>
   );
 };
 
-export default LoginComponent;
+export default SignupComponent;

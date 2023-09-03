@@ -46,6 +46,7 @@ export const MainCardForm = styled.form`
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--text-3);
+    margin-bottom: 30px;
   }
   .form-button {
     height: 35px;
