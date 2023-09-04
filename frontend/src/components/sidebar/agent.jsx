@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MenuItemSingle, SideBar, SideBarLogo } from "./styles";
 
-const SideBarComponent = () => {
+const SideBarAgent = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState(0);
 
   const setActiveTabByRoute = () => {
@@ -28,13 +29,19 @@ const SideBarComponent = () => {
       <div className="menu-items">
         <MenuItemSingle
           selected={activeTab === 0}
-          onClick={() => setActiveTab(0)}
+          onClick={() => {
+            setActiveTab(0);
+            navigate("dashboard/agent/tickets");
+          }}
         >
           All Tickets
         </MenuItemSingle>
         <MenuItemSingle
           selected={activeTab === 1}
-          onClick={() => setActiveTab(1)}
+          onClick={() => {
+            setActiveTab(1);
+            navigate("dashboard/agent/tickets/assigned");
+          }}
         >
           Assigned Tickets
         </MenuItemSingle>
@@ -43,4 +50,4 @@ const SideBarComponent = () => {
   );
 };
 
-export default SideBarComponent;
+export default SideBarAgent;

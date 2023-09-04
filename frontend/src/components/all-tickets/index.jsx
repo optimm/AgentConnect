@@ -1,22 +1,24 @@
-import { MainWrapperRight } from "../dashboard-agent/styles";
+import { useEffect, useState } from "react";
+import { useGetAllTicketsQuery } from "../../app/services/ticketApi";
 import Ticket from "../ticket";
 import { TicketsContainer } from "./styles";
 
 const AllTicketsComponent = () => {
+  const { data, isLoading, error, isFetching } = useGetAllTicketsQuery();
+  const [tickets, setTickets] = useState([]);
+
   return (
-    <TicketsContainer>
-      <Ticket></Ticket>
-      <Ticket></Ticket>
-      <Ticket></Ticket>
-      <Ticket></Ticket>
-      <Ticket></Ticket>
-      <Ticket></Ticket>
-      <Ticket></Ticket>
-      <Ticket></Ticket>
-      <Ticket></Ticket>
-      <Ticket></Ticket>
-      <Ticket></Ticket>
-    </TicketsContainer>
+    <>
+      {isLoading || isFetching ? (
+        <></>
+      ) : (
+        <TicketsContainer>
+          {data?.data?.map((item, index) => (
+            <Ticket data={item} key={index} />
+          ))}
+        </TicketsContainer>
+      )}
+    </>
   );
 };
 

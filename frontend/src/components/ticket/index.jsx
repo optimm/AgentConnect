@@ -4,23 +4,21 @@ import { AiOutlineUser } from "react-icons/ai";
 const Ticket = ({ data }) => {
   return (
     <TicketWrapper>
-      <div className="ticket-title">
-        Hello my back account is not working please make sure it works
-      </div>
+      <div className="ticket-title">{data.title}</div>
       <div className="ticket-metadata">
         <div className="ticket-owner">
           <AiOutlineUser />
           <span>Ayush Saxena</span>
         </div>
 
-        <StatusIcon critical={true}>
+        <StatusIcon critical={data.severity === "critical"}>
           <div className="status-dot" />
-          <div className="status-text">critical</div>
+          <div className="status-text">{data.severity}</div>
         </StatusIcon>
 
-        <StatusIcon resolved={true}>
+        <StatusIcon resolved={data.status === "resolved"}>
           <div className="status-dot" />
-          <div className="status-text">resolved</div>
+          <div className="status-text">{data.status}</div>
         </StatusIcon>
       </div>
     </TicketWrapper>

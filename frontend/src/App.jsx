@@ -10,11 +10,8 @@ import { FullScreenLoader } from "./components/loader";
 import AllTicketsPage from "./pages/AllTickets";
 import AssignedTicketsPage from "./pages/AssignedTickets";
 import TicketDetailPage from "./pages/TicketDetail";
-import {
-  MainWrapper,
-  MainWrapperRight,
-} from "./components/dashboard-agent/styles";
-import SideBarComponent from "./components/sidebar";
+import SideBarAgent from "./components/sidebar/agent";
+import { MainWrapper, MainWrapperRight } from "./styles/globalStyle";
 
 function App() {
   const { isAuthenticated } = useSelector((state) => state.me);
@@ -61,18 +58,23 @@ function App() {
             />
           </Routes>
 
-          {/* dashboard routes */}
+          {/* dashboard agent routes */}
           <MainWrapper>
-            <SideBarComponent />
+            <SideBarAgent />
             <MainWrapperRight>
               <Routes>
                 <Route
                   path="/dashboard/agent/tickets"
                   element={<AllTicketsPage />}
-                >
-                  <Route path="assigned" element={<AssignedTicketsPage />} />
-                  <Route path=":id" element={<TicketDetailPage />} />
-                </Route>
+                />
+                <Route
+                  path="/dashboard/agent/tickets/assigned"
+                  element={<AssignedTicketsPage />}
+                />
+                <Route
+                  path="/dashboard/agent/tickets/:id"
+                  element={<TicketDetailPage />}
+                />
               </Routes>
             </MainWrapperRight>
           </MainWrapper>
