@@ -29,6 +29,9 @@ export const TicketWrapper = styled.div`
     gap: 5px;
     font-size: 13px;
     color: var(--text-3);
+    span {
+      text-transform: capitalize;
+    }
   }
 `;
 

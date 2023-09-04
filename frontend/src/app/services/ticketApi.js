@@ -12,7 +12,17 @@ export const ticketApi = baseApi.injectEndpoints({
       },
       providesTags: ["AllTickets"],
     }),
+
+    getAssignedTickets: builder.query({
+      query: () => {
+        return {
+          url: "tickets/assigned",
+          method: "GET",
+        };
+      },
+      providesTags: ["AssignedTickets"],
+    }),
   }),
 });
 
-export const { useGetAllTicketsQuery } = ticketApi;
+export const { useGetAllTicketsQuery, useGetAssignedTicketsQuery } = ticketApi;

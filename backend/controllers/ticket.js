@@ -8,7 +8,19 @@ const { BadRequestError, UnauthenticatedError } = require("../errors");
 
 //getting the tickets
 const getAllTickets = async (req, res) => {
-  const data = await Ticket.find({});
+  const data = await Ticket.find({}).populate("owner", "name email");
+  res.status(StatusCodes.OK).json({ success: true, data });
+};
+
+//get assigned Tickets
+const getAssignedTickets = async (req, res) => {
+  const { userId: agentId, isAgent } = req.user;
+  if (!isAgent) {
+    throw new UnauthenticatedError("Not an agent");
+  }
+  const data = await Ticket.find({
+    assigned: agentId,
+  }).populate("owner", "name email");
   res.status(StatusCodes.OK).json({ success: true, data });
 };
 
@@ -42,7 +54,7 @@ const assignTicket = async (req, res) => {
   const { id } = req.params;
   const { userId: agentId, isAgent } = req.user;
 
-  if (isAgent) {
+  if (!isAgent) {
     throw new UnauthenticatedError("Cannot assign, access denied");
   }
   const ticket = await Ticket.findById(id);
@@ -93,4 +105,5 @@ module.exports = {
   assignTicket,
   getAllTickets,
   getTicket,
+  getAssignedTickets,
 };

@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
 import { useGetAllTicketsQuery } from "../../app/services/ticketApi";
 import Ticket from "../ticket";
 import { TicketsContainer } from "./styles";
 
 const AllTicketsComponent = () => {
-  const { data, isLoading, error, isFetching } = useGetAllTicketsQuery();
-  const [tickets, setTickets] = useState([]);
+  const { data, isLoading, isFetching } = useGetAllTicketsQuery();
 
   return (
     <>

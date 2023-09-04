@@ -1,7 +1,7 @@
-import React from "react";
+import AssignedTicketsComponent from "../components/assigned-tickets";
 
 const AssignedTicketsPage = () => {
-  return <div>AssignedTickets</div>;
+  return <AssignedTicketsComponent />;
 };
 
 export default AssignedTicketsPage;

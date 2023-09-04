@@ -1,14 +1,15 @@
+import { lineProcessor } from "../../utils/utilFunctions";
 import { StatusIcon, TicketWrapper } from "./styles";
 import { AiOutlineUser } from "react-icons/ai";
 
 const Ticket = ({ data }) => {
   return (
     <TicketWrapper>
-      <div className="ticket-title">{data.title}</div>
+      <div className="ticket-title">{lineProcessor(data?.title, 100)}</div>
       <div className="ticket-metadata">
         <div className="ticket-owner">
           <AiOutlineUser />
-          <span>Ayush Saxena</span>
+          <span>{data.owner.name}</span>
         </div>
 
         <StatusIcon critical={data.severity === "critical"}>

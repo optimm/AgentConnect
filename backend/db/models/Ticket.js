@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const ticketSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.Types.ObjectId,
-    refPath: "User",
+    ref: "User",
     required: true,
   },
   assigned: {
     type: mongoose.Schema.Types.ObjectId,
-    refPath: "User",
+    ref: "User",
   },
   isAssigned: {
     type: Boolean,
