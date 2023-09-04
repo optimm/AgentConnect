@@ -7,6 +7,14 @@ import { useSelector } from "react-redux";
 import { useCheckMyAuthQuery } from "./app/services/authApi";
 import { useEffect, useState } from "react";
 import { FullScreenLoader } from "./components/loader";
+import AllTicketsPage from "./pages/AllTickets";
+import AssignedTicketsPage from "./pages/AssignedTickets";
+import TicketDetailPage from "./pages/TicketDetail";
+import {
+  MainWrapper,
+  MainWrapperRight,
+} from "./components/dashboard-agent/styles";
+import SideBarComponent from "./components/sidebar";
 
 function App() {
   const { isAuthenticated } = useSelector((state) => state.me);
@@ -41,6 +49,7 @@ function App() {
         </>
       ) : (
         <BrowserRouter>
+          {/* auth routes */}
           <Routes>
             <Route path="/" element={<>Home</>} />
             <Route path="/login/user" element={<LoginPage role="user" />} />
@@ -51,6 +60,22 @@ function App() {
               element={<SignupPage role="agent" />}
             />
           </Routes>
+
+          {/* dashboard routes */}
+          <MainWrapper>
+            <SideBarComponent />
+            <MainWrapperRight>
+              <Routes>
+                <Route
+                  path="/dashboard/agent/tickets"
+                  element={<AllTicketsPage />}
+                >
+                  <Route path="assigned" element={<AssignedTicketsPage />} />
+                  <Route path=":id" element={<TicketDetailPage />} />
+                </Route>
+              </Routes>
+            </MainWrapperRight>
+          </MainWrapper>
         </BrowserRouter>
       )}
 
