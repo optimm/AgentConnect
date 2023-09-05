@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./styles/index.css";
 import { Notification } from "./components/notification";
 import { useCheckMyAuthQuery } from "./app/services/authApi";
@@ -7,11 +7,13 @@ import { FullScreenLoader } from "./components/loader";
 import { AuthRoutes } from "./routes/auth";
 import { DashboardRoutes } from "./routes/dashboard";
 import Home from "./pages/Home";
+import { useSelector } from "react-redux";
 
 function App() {
   const { data, isLoading, error, isFetching } = useCheckMyAuthQuery();
   const [blankLoader, setBlankLoader] = useState(true);
   const [errState, setErrState] = useState(false);
+  const { isAuthenticated, myData } = useSelector((state) => state.me);
   useEffect(() => {
     let success = data?.success;
     let notSuccess = error?.data?.success;
@@ -25,6 +27,16 @@ function App() {
       }, 2000);
     }
   }, [isFetching, data, error]);
+
+  const getHome = () => {
+    if (isAuthenticated && myData.isAgent) {
+      return <Navigate replace to="/dashboard/agent/tickets" />;
+    } else if (isAuthenticated && myData.isUser) {
+      return <Navigate replace to="/dashboard/user/tickets" />;
+    } else {
+      return <Home />;
+    }
+  };
 
   return (
     <>
@@ -41,7 +53,7 @@ function App() {
       ) : (
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={getHome()} />
           </Routes>
           <AuthRoutes />
           <DashboardRoutes />

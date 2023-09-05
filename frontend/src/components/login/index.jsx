@@ -40,7 +40,7 @@ const LoginComponent = ({ role }) => {
         const data = await login({ body: values }).unwrap();
         resetForm();
         createNotification(`Welcome ${data?.data?.name}`, "success", 2000);
-        navigate(`dashboard/${role}/tickets`);
+        navigate(`/dashboard/${role}/tickets`);
       } catch (error) {}
     },
   });

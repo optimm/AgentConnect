@@ -35,7 +35,7 @@ const SideBarComp = ({ role }) => {
           selected={activeTab === 0}
           onClick={() => {
             setActiveTab(0);
-            navigate(`dashboard/${role}/tickets`);
+            navigate(`/dashboard/${role}/tickets`);
           }}
         >
           All Tickets
@@ -46,7 +46,7 @@ const SideBarComp = ({ role }) => {
             selected={activeTab === 1}
             onClick={() => {
               setActiveTab(1);
-              navigate(`dashboard/agent/tickets/assigned`);
+              navigate(`/dashboard/agent/tickets/assigned`);
             }}
           >
             Assigned Tickets
@@ -56,7 +56,7 @@ const SideBarComp = ({ role }) => {
             selected={activeTab === 1}
             onClick={() => {
               setActiveTab(1);
-              navigate(`dashboard/user/tickets/my`);
+              navigate(`/dashboard/user/tickets/my`);
             }}
           >
             My Tickets

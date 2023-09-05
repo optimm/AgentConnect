@@ -22,7 +22,8 @@ export const HomeWrapper = styled.div`
   }
 
   .home-button{
-    width:100px;
+    width:150px;
+    height:50px;
   }
 
 `;

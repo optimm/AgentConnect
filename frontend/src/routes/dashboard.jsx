@@ -29,12 +29,7 @@ export const DashboardRoutes = () => {
   };
 
   const GetWrappedComponent = ({ componentToRender }) => {
-    return (
-      <MainWrapper>
-        <SideBarComp role={myData.isAgent ? "agent" : "user"} />
-        <MainWrapperRight>{componentToRender}</MainWrapperRight>
-      </MainWrapper>
-    );
+    return <MainWrapperRight>{componentToRender}</MainWrapperRight>;
   };
 
   const getDashboardRoute = () => {
@@ -44,64 +39,72 @@ export const DashboardRoutes = () => {
           <Route
             path="/dashboard/agent/*"
             element={
-              <Routes>
-                <Route
-                  path="tickets"
-                  element={
-                    <GetWrappedComponent
-                      componentToRender={<AllTicketsPage />}
-                    />
-                  }
-                />
-                <Route
-                  path="tickets/assigned"
-                  element={
-                    <GetWrappedComponent
-                      componentToRender={<AssignedTicketsPage />}
-                    />
-                  }
-                />
-                <Route
-                  path="tickets/:id"
-                  element={
-                    <GetWrappedComponent
-                      componentToRender={<TicketDetailPage />}
-                    />
-                  }
-                />
-              </Routes>
+              <MainWrapper>
+                <SideBarComp role={"agent"} />
+                <Routes>
+                  <Route
+                    path="tickets"
+                    element={
+                      <GetWrappedComponent
+                        componentToRender={<AllTicketsPage />}
+                      />
+                    }
+                  />
+                  <Route
+                    path="tickets/assigned"
+                    element={
+                      <GetWrappedComponent
+                        componentToRender={<AssignedTicketsPage />}
+                      />
+                    }
+                  />
+                  <Route
+                    path="tickets/:id"
+                    element={
+                      <GetWrappedComponent
+                        componentToRender={<TicketDetailPage />}
+                      />
+                    }
+                  />
+                </Routes>
+              </MainWrapper>
             }
           />
         ) : (
           <Route
             path="/dashboard/user/*"
             element={
-              <Routes>
-                <Route
-                  path="tickets"
-                  element={
-                    <GetWrappedComponent
-                      componentToRender={<AllTicketsPage />}
+              <>
+                <MainWrapper>
+                  <SideBarComp role={"user"} />
+                  <Routes>
+                    <Route
+                      path="tickets"
+                      element={
+                        <GetWrappedComponent
+                          componentToRender={<AllTicketsPage />}
+                        />
+                      }
                     />
-                  }
-                />
-                <Route
-                  path="tickets/my"
-                  element={
-                    <GetWrappedComponent
-                      componentToRender={<AssignedTicketsPage />}
+                    <Route
+                      path="tickets/my"
+                      element={
+                        <GetWrappedComponent
+                          componentToRender={<AssignedTicketsPage />}
+                        />
+                      }
                     />
-                  }
-                />
-                <Route
-                  path="tickets/:id"
-                  element={
-                    <GetWrappedComponent
-                      componentToRender={<TicketDetailPage />}
+                    <Route
+                      path="tickets/:id"
+                      element={
+                        <GetWrappedComponent
+                          componentToRender={<TicketDetailPage />}
+                        />
+                      }
                     />
-                  }
-                />
-              </Routes>
+                  </Routes>
+                </MainWrapper>
+              </>
             }
           />
         )}
