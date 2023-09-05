@@ -51,8 +51,8 @@ export const StatusIcon = styled.div`
         : props.severity === "critical"
         ? "red"
         : "yellow"};
-    height: 7px;
-    width: 7px;
+    height: 10px;
+    width: 10px;
     border-radius: 50%;
   }
 `;

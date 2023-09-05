@@ -9,7 +9,7 @@ export const TicketDataWrapper = styled.div`
   flex-direction: column;
 
   .ticket-title {
-    margin-top: 20px;
+    margin-top: 40px;
     font-size: 20px;
     color: var(--text-2);
     font-weight: 500;
