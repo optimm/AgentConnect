@@ -10,6 +10,7 @@ const {
   getTicket,
   getAssignedTickets,
   getTicketMessages,
+  getMyTickets,
 } = require("../controllers/ticket");
 const { authMiddleware } = require("../middleware/auth");
 const { sendMessage } = require("../controllers/message");
@@ -19,6 +20,7 @@ router
   .post(authMiddleware, createTicket)
   .get(authMiddleware, getAllTickets);
 
+router.route("/my").get(authMiddleware, getMyTickets);
 router.route("/assigned").get(authMiddleware, getAssignedTickets);
 router
   .route("/:id")

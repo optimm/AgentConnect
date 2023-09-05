@@ -1,12 +1,12 @@
 import React from "react";
 import { AddTicket } from "./styles";
-import { useGetAllTicketsQuery } from "../../app/services/ticketApi";
+import { useGetMyTicketsQuery } from "../../app/services/ticketApi";
 import { Button } from "@mui/material";
 import { TicketsContainer } from "../all-tickets/styles";
 import Ticket from "../ticket";
 
 const MyTicketsComp = () => {
-  const { data, isLoading, isFetching } = useGetAllTicketsQuery();
+  const { data, isLoading, isFetching } = useGetMyTicketsQuery();
 
   return (
     <>

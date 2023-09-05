@@ -28,6 +28,18 @@ const getAssignedTickets = async (req, res) => {
   res.status(StatusCodes.OK).json({ success: true, data });
 };
 
+//get my ticket
+const getMyTickets = async (req, res) => {
+  const { userId, isAgent } = req.user;
+  if (isAgent) {
+    throw new UnauthenticatedError("Not a user");
+  }
+  const data = await Ticket.find({
+    owner: userId,
+  }).populate("owner", "name email");
+  res.status(StatusCodes.OK).json({ success: true, data });
+};
+
 const getTicket = async (req, res) => {
   const { id } = req.params;
   const { userId } = req.user;
@@ -138,4 +150,5 @@ module.exports = {
   getTicket,
   getAssignedTickets,
   getTicketMessages,
+  getMyTickets,
 };

@@ -41,6 +41,16 @@ export const ticketApi = baseApi.injectEndpoints({
       providesTags: ["AssignedTickets"],
     }),
 
+    getMyTickets: builder.query({
+      query: () => {
+        return {
+          url: "tickets/my",
+          method: "GET",
+        };
+      },
+      providesTags: ["MyTickets"],
+    }),
+
     assignTicket: builder.mutation({
       query: ({ id }) => {
         return {
@@ -49,7 +59,7 @@ export const ticketApi = baseApi.injectEndpoints({
         };
       },
       invalidatesTags: (result, _error) =>
-        result?.success ? ["SingleTicket"] : [],
+        result?.success ? ["SingleTicket", "MyTickets", "AssignedTickets"] : [],
     }),
 
     updateTicket: builder.mutation({
@@ -61,7 +71,7 @@ export const ticketApi = baseApi.injectEndpoints({
         };
       },
       invalidatesTags: (result, _error) =>
-        result?.success ? ["SingleTicket"] : [],
+        result?.success ? ["SingleTicket", "MyTickets", "AssignedTickets"] : [],
     }),
 
     //send messages
@@ -85,4 +95,5 @@ export const {
   useUpdateTicketMutation,
   useGetTicketMessagesMutation,
   useSendMessageMutation,
+  useGetMyTicketsQuery,
 } = ticketApi;
