@@ -79,6 +79,7 @@ const TicketDetailComp = () => {
             exclusive
             aria-label="Status"
             onChange={(e) => handleStatusUpdate(e.target.value)}
+            disabled={!ticketData?.canUpdate}
           >
             <ToggleButton value="resolved" color="success">
               Resolved
@@ -93,7 +94,7 @@ const TicketDetailComp = () => {
             exclusive
             aria-label="Severity"
             onChange={(e) => handleSeverityUpdate(e.target.value)}
-            disabled={myData?.isUser}
+            disabled={myData?.isUser || !ticketData?.canUpdate}
           >
             <ToggleButton value="generic" color="info">
               Generic
@@ -104,7 +105,7 @@ const TicketDetailComp = () => {
           </ToggleButtonGroup>
         </div>
         <div className="ticket-title">{ticketData?.title}</div>
-        <ChatComp id={id} canMessage={ticketData?.canMessage} />
+        <ChatComp id={id} canUpdate={ticketData?.canUpdate} />
       </TicketDataWrapper>
     </>
   );

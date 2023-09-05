@@ -39,7 +39,7 @@ const LoginComponent = ({ role }) => {
     onSubmit: async (values) => {
       try {
         setShowPassword(false);
-        const data = await login({ body: values }).unwrap();
+        const data = await login({ body: { ...values, role } }).unwrap();
         resetForm();
         dispatch(
           authenticateMe({

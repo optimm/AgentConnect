@@ -37,12 +37,12 @@ const getTicket = async (req, res) => {
     throw new NotFoundError("Ticket not found");
   }
   data = data.toObject();
-  const canMessage =
+  const canUpdate =
     data.owner.toString() === userId.toString() ||
     (data.isAssigned && data.assigned.toString() === userId.toString());
   res
     .status(StatusCodes.OK)
-    .json({ success: true, data: { ...data, canMessage } });
+    .json({ success: true, data: { ...data, canUpdate } });
 };
 
 const getTicketMessages = async (req, res) => {

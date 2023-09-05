@@ -29,7 +29,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
 
   if (!email || email === "" || !password || password === "") {
     throw new BadRequestError("Please provide email and password");
@@ -39,6 +39,10 @@ const login = async (req, res) => {
 
   if (!user) {
     throw new NotFoundError("Not found");
+  }
+
+  if (user.role !== role) {
+    throw new UnauthenticatedError("Invalid Login");
   }
 
   //compare password

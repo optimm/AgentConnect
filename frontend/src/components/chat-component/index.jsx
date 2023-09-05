@@ -9,7 +9,7 @@ import { BiSolidSend } from "react-icons/bi";
 import { ButtonLoader } from "../loader";
 import { useSelector } from "react-redux";
 
-const ChatComp = ({ id, canMessage = false }) => {
+const ChatComp = ({ id, canUpdate = false }) => {
   const { myData } = useSelector((state) => state.me);
   const [getMessages, { isLoading }] = useGetTicketMessagesMutation();
   const [sendMessage, { isLoading: isSendMessageLoading }] =
@@ -49,7 +49,7 @@ const ChatComp = ({ id, canMessage = false }) => {
           </ChatMessage>
         ))}
       </ChatInner>
-      {canMessage && (
+      {canUpdate && (
         <SendTextWrapper>
           <div className="reload-button-section">
             <Button
