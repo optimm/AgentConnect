@@ -1,35 +1,42 @@
 import React from "react";
-import { HomeWrapper } from "../styles/homeStyles";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { LandingContainer, LandingOverlay } from "../styles/homeStyles";
 
 const Home = () => {
   const navigate = useNavigate();
   return (
-    <HomeWrapper>
-      <div className="home-text">
-        Welcome to branch international query portal, Whom do you want to
-        continue as?
-      </div>
-      <div className="home-button-section">
-        <Button
-          color="primary"
-          variant="contained"
-          className="home-button"
-          onClick={() => navigate("/login/user")}
-        >
-          User
-        </Button>
-        <Button
-          color="primary"
-          variant="contained"
-          className="home-button"
-          onClick={() => navigate("/login/agent")}
-        >
-          Agent
-        </Button>
-      </div>
-    </HomeWrapper>
+    <LandingContainer url="/images/landing.jpg">
+      <LandingOverlay>
+        <div className="section-main">
+          <div className="text-main">
+            Welcome To <span className="text-main-span">b</span>ranch
+          </div>
+          <div className="text-sub">
+            Welcome to branch international query portal, Whom do you want to
+            continue as?
+          </div>
+          <div className="button-container">
+            <Button
+              color="primary"
+              variant="contained"
+              className="button-main"
+              onClick={() => navigate("/login/user")}
+            >
+              User
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              className="button-main"
+              onClick={() => navigate("/login/agent")}
+            >
+              Agent
+            </Button>
+          </div>
+        </div>
+      </LandingOverlay>
+    </LandingContainer>
   );
 };
 

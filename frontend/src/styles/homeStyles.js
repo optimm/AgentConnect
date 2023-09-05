@@ -1,29 +1,45 @@
 import styled from "styled-components";
-import { flexcv } from "./globalStyle";
+import { backgroundGeneral, flexcv } from "./globalStyle";
 
-export const HomeWrapper = styled.div`
-  max-height:100vh;
+export const LandingContainer = styled.div`
   height: 100vh;
   width: 100vw;
-  overflow:hidden;
+  background: url(${(props) => props.url});
+  ${backgroundGeneral}
+`;
+
+export const LandingOverlay = styled.div`
   ${flexcv}
-  gap:50px;
-
-  .home-text {
-    font-size: 30px;
-    width: 80%;
-    margin-auto;
-    text-align:center;
+  padding: 0% 6%;
+  width: 100%;
+  height: 100%;
+  background: var(--back-drop);
+  color: var(--text-white);
+  .section-main {
+    text-align: center;
+    width: fit-content;
   }
-  .home-button-section {
-    justify-content:center;
+  .text-main {
+    font-size: clamp(40px, 5vw, 5vw);
+  }
+  .text-main-span {
+    font-weight: 600;
+  }
+  .text-sub {
+    font-size: clamp(20px, 2vw, 2vw);
+    font-weight: 400;
+    width: 65%;
+    margin: 0% auto;
+    margin-top: 3%;
+  }
+  .button-container {
     display: flex;
-    gap: 100px;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 5%;
   }
-
-  .home-button{
-    width:150px;
-    height:50px;
+  .button-main {
+    height: 55px;
+    width: 230px;
   }
-
 `;

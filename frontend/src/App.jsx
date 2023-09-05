@@ -56,6 +56,11 @@ function App() {
             style={{ display: "none" }}
             alt={"skeleton"}
           />
+          <img
+            src="/images/landing.jpg"
+            style={{ display: "none" }}
+            alt={"skeleton"}
+          />
 
           <FullScreenLoader />
         </>
