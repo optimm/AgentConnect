@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  ChatInner,
-  ChatWrapper,
-  SendTextWrapper,
-  TicketDataWrapper,
-} from "./styles";
+import { TicketDataWrapper } from "./styles";
 import { Button, ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
   useAssignTicketMutation,
@@ -18,16 +12,14 @@ import ChatComp from "../chat-component";
 
 const TicketDetailComp = () => {
   const { id } = useParams();
-  const { myData } = useSelector((state) => state.me);
   const [ticketData, setTicketData] = useState({});
   const [status, setStatus] = useState("pending");
   const [severity, setSeverity] = useState("generic");
-  const { data, isLoading } = useGetSingleTicketsQuery({ id });
+  const { data } = useGetSingleTicketsQuery({ id });
 
   const [assignTicket, { isLoading: isAssignLoading }] =
     useAssignTicketMutation();
-  const [updateTicket, { isLoading: isUpdateLoading }] =
-    useUpdateTicketMutation();
+  const [updateTicket] = useUpdateTicketMutation();
 
   useEffect(() => {
     if (data?.success) {

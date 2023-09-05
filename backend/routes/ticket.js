@@ -9,6 +9,7 @@ const {
   getAllTickets,
   getTicket,
   getAssignedTickets,
+  getTicketMessages,
 } = require("../controllers/ticket");
 const { authMiddleware } = require("../middleware/auth");
 const { sendMessage } = require("../controllers/message");
@@ -24,8 +25,11 @@ router
   .patch(authMiddleware, updateTicket)
   .get(authMiddleware, getTicket);
 
-router.route("/assign/:id").get(authMiddleware, assignTicket);
+router.route("/:id/assign").get(authMiddleware, assignTicket);
 
-router.route("/:id/message").post(authMiddleware, sendMessage);
+router
+  .route("/:id/message")
+  .post(authMiddleware, sendMessage)
+  .get(authMiddleware, getTicketMessages);
 
 module.exports = router;

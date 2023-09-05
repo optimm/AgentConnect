@@ -30,19 +30,28 @@ const getAssignedTickets = async (req, res) => {
 
 const getTicket = async (req, res) => {
   const { id } = req.params;
+
+  let data = await Ticket.findById(id).populate("owner", "name email");
+  if (!data) {
+    throw new NotFoundError("Ticket not found");
+  }
+  data = data.toObject();
+  res.status(StatusCodes.OK).json({ success: true, data });
+};
+
+const getTicketMessages = async (req, res) => {
+  const { id } = req.params;
   const { userId } = req.user;
 
   let data = await Ticket.findById(id);
   if (!data) {
     throw new NotFoundError("Ticket not found");
   }
-  data = data.toObject();
+
   let messages = await Message.find({ ticket: id }).sort("-timestamp");
   messages = formatMessages(messages, userId);
 
-  res
-    .status(StatusCodes.OK)
-    .json({ success: true, data: { ...data, messages } });
+  res.status(StatusCodes.OK).json({ success: true, data: messages });
 };
 
 // ticket creation
@@ -122,4 +131,5 @@ module.exports = {
   getAllTickets,
   getTicket,
   getAssignedTickets,
+  getTicketMessages,
 };

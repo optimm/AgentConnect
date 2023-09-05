@@ -21,5 +21,3 @@ export const TicketDataWrapper = styled.div`
     width: 150px;
   }
 `;
-
-
