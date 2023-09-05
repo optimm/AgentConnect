@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { flexcv } from "../../styles/globalStyle";
 
 export const ChatWrapper = styled.div`
   margin-top: 20px;
   width: 100%;
   flex-grow: 1;
+  overflow-y: auto;
   background: var(--sepration);
   display: flex;
   flex-direction: column;
@@ -12,17 +12,15 @@ export const ChatWrapper = styled.div`
 
 export const ChatInner = styled.div`
   padding: 20px;
-  height: 82%;
+  height: calc(100% - 80px);
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
 `;
 
 export const SendTextWrapper = styled.div`
   width: 100%;
-  height: 18%;
   background-color: rgb(245, 245, 245);
-  padding: 0 10px;
+  height: 80px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
 

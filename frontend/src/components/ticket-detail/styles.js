@@ -2,9 +2,10 @@ import styled from "styled-components";
 
 export const TicketDataWrapper = styled.div`
   width: 100%;
+  max-height: 100vh;
+  height: 100vh;
+  padding: 50px;
   display: flex;
-  max-height: 100%;
-  height: 100%;
   flex-direction: column;
 
   .ticket-title {

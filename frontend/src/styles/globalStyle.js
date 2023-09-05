@@ -14,8 +14,20 @@ export const MainWrapper = styled.div`
 `;
 
 export const MainWrapperRight = styled.div`
-  height: 100vh;
   width: 80vw;
+`;
+
+export const FullScreenRight = styled.div`
+  width: 100%;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  padding: 50px;
+`;
+
+export const ScrollableRight = styled.div`
+  width: 100%;
+  height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 50px;
