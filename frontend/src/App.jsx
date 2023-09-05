@@ -5,9 +5,13 @@ import { useCheckMyAuthQuery } from "./app/services/authApi";
 import { useEffect, useState } from "react";
 import { FullScreenLoader } from "./components/loader";
 import { AuthRoutes } from "./routes/auth";
-import { DashboardRoutes } from "./routes/dashboard";
 import Home from "./pages/Home";
 import { useSelector } from "react-redux";
+import { MainWrapper, MainWrapperRight } from "./styles/globalStyle";
+import SideBarComp from "./components/sidebar";
+import AllTicketsPage from "./pages/AllTickets";
+import AssignedTicketsPage from "./pages/AssignedTickets";
+import TicketDetailPage from "./pages/TicketDetail";
 
 function App() {
   const { data, isLoading, error, isFetching } = useCheckMyAuthQuery();
@@ -38,6 +42,10 @@ function App() {
     }
   };
 
+  const GetWrappedComponent = ({ componentToRender }) => {
+    return <MainWrapperRight>{componentToRender}</MainWrapperRight>;
+  };
+
   return (
     <>
       {isLoading || isFetching || blankLoader ? (
@@ -56,7 +64,76 @@ function App() {
             <Route path="/" element={getHome()} />
           </Routes>
           <AuthRoutes />
-          <DashboardRoutes />
+          <Routes>
+            <Route
+              path="/dashboard/agent/*"
+              element={
+                <MainWrapper>
+                  <SideBarComp role={"agent"} />
+                  <Routes>
+                    <Route
+                      path="tickets"
+                      element={
+                        <GetWrappedComponent
+                          componentToRender={<AllTicketsPage />}
+                        />
+                      }
+                    />
+                    <Route
+                      path="tickets/assigned"
+                      element={
+                        <GetWrappedComponent
+                          componentToRender={<AssignedTicketsPage />}
+                        />
+                      }
+                    />
+                    <Route
+                      path="tickets/:id"
+                      element={
+                        <GetWrappedComponent
+                          componentToRender={<TicketDetailPage />}
+                        />
+                      }
+                    />
+                  </Routes>
+                </MainWrapper>
+              }
+            />
+            <Route
+              path="/dashboard/user/*"
+              element={
+                <MainWrapper>
+                  <SideBarComp role={"user"} />
+                  <Routes>
+                    <Route
+                      path="tickets"
+                      element={
+                        <GetWrappedComponent
+                          componentToRender={<AllTicketsPage />}
+                        />
+                      }
+                    />
+                    <Route
+                      path="tickets/my"
+                      element={
+                        <GetWrappedComponent
+                          componentToRender={<AssignedTicketsPage />}
+                        />
+                      }
+                    />
+                    <Route
+                      path="tickets/:id"
+                      element={
+                        <GetWrappedComponent
+                          componentToRender={<TicketDetailPage />}
+                        />
+                      }
+                    />
+                  </Routes>
+                </MainWrapper>
+              }
+            />
+          </Routes>
         </BrowserRouter>
       )}
 

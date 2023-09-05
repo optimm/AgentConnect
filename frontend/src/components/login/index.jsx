@@ -15,11 +15,13 @@ import { useFormik } from "formik";
 import loginSchema from "./schema";
 import { ButtonLoader } from "../loader";
 import { createNotification } from "../notification";
+import { useDispatch } from "react-redux";
 
 const LoginComponent = ({ role }) => {
   const [login, { error: requestError, isError, isLoading }] =
     useLoginMutation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     touched,
     errors,
@@ -39,6 +41,12 @@ const LoginComponent = ({ role }) => {
         setShowPassword(false);
         const data = await login({ body: values }).unwrap();
         resetForm();
+        dispatch(
+          authenticateMe({
+            isAuthenticated: true,
+            data: data?.data,
+          })
+        );
         createNotification(`Welcome ${data?.data?.name}`, "success", 2000);
         navigate(`/dashboard/${role}/tickets`);
       } catch (error) {}
