@@ -7,6 +7,12 @@ export const baseApi = createApi({
     baseUrl: `${ApplicationConfig.backendUrl}/`,
     credentials: "include",
   }),
-  tagTypes: [],
+  tagTypes: [
+    "CheckAuth",
+    "AllTickets",
+    "SingleTicket",
+    "AssignedTickets",
+    "MyTickets",
+  ],
   endpoints: () => ({}),
 });

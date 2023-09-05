@@ -21,6 +21,7 @@ const RaiseQueryModal = ({ open, setOpen }) => {
   const [title, setTitle] = useState("");
   const [createTicket, { isLoading }] = useCreateTicketMutation();
   const handleClose = () => {
+    setTitle("");
     setOpen(false);
   };
 

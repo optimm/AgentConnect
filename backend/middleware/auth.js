@@ -11,10 +11,11 @@ const authMiddleware = async (req, res, next) => {
     throw new UnauthenticatedError("Token not present, Please log in");
   }
   const { userId } = jwt.verify(token, process.env.JWT_SECRET);
-  const user = await User.findById(userId);
+  let user = await User.findById(userId);
   if (!user) {
     throw new UnauthenticatedError("Invalid token");
   }
+  user = user.toObject();
   const isAgent = user.role === "agent";
   req.user = { userId, isAgent };
 

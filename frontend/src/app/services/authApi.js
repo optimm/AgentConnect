@@ -42,6 +42,17 @@ export const authApi = baseApi.injectEndpoints({
           method: "GET",
         };
       },
+
+      invalidatesTags: (result, _error) =>
+        result?.success
+          ? [
+              "CheckAuth",
+              "AllTickets",
+              "SingleTicket",
+              "AssignedTickets",
+              "MyTickets",
+            ]
+          : [],
     }),
 
     checkMyAuth: builder.query({
