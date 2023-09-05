@@ -1,24 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TicketDataWrapper } from "./styles";
 import { Button, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import {
+  useAssignTicketMutation,
+  useGetSingleTicketsQuery,
+} from "../../app/services/ticketApi";
+import { ButtonLoader } from "../loader";
 
 const TicketDetailComp = () => {
+  const { id } = useParams();
   const { myData } = useSelector((state) => state.me);
+  const [ticketData, setTicketData] = useState({});
   const [status, setStatus] = useState("pending");
   const [severity, setSeverity] = useState("generic");
+  const { data, isLoading } = useGetSingleTicketsQuery({ id });
+
+  const [assignTicket, { isLoading: isAssignLoading }] =
+    useAssignTicketMutation();
+
+  useEffect(() => {
+    if (data?.success) {
+      setTicketData(data?.data);
+    }
+    setStatus(data?.data?.status);
+    setSeverity(data?.data?.severity);
+  }, [data]);
 
   const handleDataUpdate = () => {};
 
+  const handleAssignTicket = async () => {
+    try {
+      await assignTicket({ id });
+    } catch (error) {}
+  };
+
   return (
     <TicketDataWrapper>
-      <div className="ticket-title">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab explicabo,
-        error reprehenderit sapiente veniam fugit illum rerum odit aliquam.
-        Cupiditate?
-      </div>
       <div className="ticket-buttons">
-        <Button variant="contained">Assign to me</Button>
+        <Button
+          variant="contained"
+          disabled={ticketData?.isAssigned}
+          color={ticketData?.isAssigned ? "success" : "primary"}
+          onClick={handleAssignTicket}
+          className="ticket-assign-button"
+        >
+          {ticketData?.isAssigned ? (
+            "Assigned"
+          ) : isAssignLoading ? (
+            <ButtonLoader />
+          ) : (
+            "Assign to me"
+          )}
+        </Button>
         <ToggleButtonGroup
           value={status}
           exclusive
@@ -47,6 +82,7 @@ const TicketDetailComp = () => {
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
+      <div className="ticket-title">{ticketData?.title}</div>
     </TicketDataWrapper>
   );
 };

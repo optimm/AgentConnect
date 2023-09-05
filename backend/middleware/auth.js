@@ -18,7 +18,6 @@ const authMiddleware = async (req, res, next) => {
   const isAgent = user.role === "agent";
   req.user = { userId, isAgent };
 
-  console.log("going away .....");
   next();
 };
 

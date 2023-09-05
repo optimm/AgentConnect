@@ -24,7 +24,7 @@ router
   .patch(authMiddleware, updateTicket)
   .get(authMiddleware, getTicket);
 
-router.route("/assign/:id").patch(authMiddleware, assignTicket);
+router.route("/assign/:id").get(authMiddleware, assignTicket);
 
 router.route("/:id/message").post(authMiddleware, sendMessage);
 

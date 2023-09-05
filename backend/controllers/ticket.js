@@ -4,7 +4,11 @@ const Message = require("../db/models/Message");
 const formatMessages = require("../utils/formatMessages");
 
 const { StatusCodes } = require("http-status-codes");
-const { BadRequestError, UnauthenticatedError } = require("../errors");
+const {
+  BadRequestError,
+  UnauthenticatedError,
+  NotFoundError,
+} = require("../errors");
 
 //getting the tickets
 const getAllTickets = async (req, res) => {
@@ -29,6 +33,9 @@ const getTicket = async (req, res) => {
   const { userId } = req.user;
 
   let data = await Ticket.findById(id);
+  if (!data) {
+    throw new NotFoundError("Ticket not found");
+  }
   data = data.toObject();
   let messages = await Message.find({ ticket: id }).sort("-timestamp");
   messages = formatMessages(messages, userId);
@@ -57,10 +64,11 @@ const assignTicket = async (req, res) => {
   if (!isAgent) {
     throw new UnauthenticatedError("Cannot assign, access denied");
   }
-  const ticket = await Ticket.findById(id);
+  let ticket = await Ticket.findById(id);
   if (!ticket) {
     throw new BadRequestError("Ticket not found");
   }
+  ticket = ticket.toObject();
 
   if (ticket.isAssigned) {
     throw new BadRequestError("Ticket is already assigned");
