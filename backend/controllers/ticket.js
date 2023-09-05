@@ -101,6 +101,14 @@ const updateTicket = async (req, res) => {
   if (status) {
     ticket.status = status;
   }
+
+  if (status === "resolved") {
+    if (ticket.isAssigned) {
+      ticket.isAssigned = false;
+      delete ticket.assigned;
+    }
+  }
+
   await Ticket.deleteOne({ _id: id });
   let updatedTicket = new Ticket(ticket);
   await updatedTicket.save();

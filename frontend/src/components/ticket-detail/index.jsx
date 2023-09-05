@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import {
   useAssignTicketMutation,
   useGetSingleTicketsQuery,
+  useUpdateTicketMutation,
 } from "../../app/services/ticketApi";
 import { ButtonLoader } from "../loader";
 
@@ -19,6 +20,8 @@ const TicketDetailComp = () => {
 
   const [assignTicket, { isLoading: isAssignLoading }] =
     useAssignTicketMutation();
+  const [updateTicket, { isLoading: isUpdateLoading }] =
+    useUpdateTicketMutation();
 
   useEffect(() => {
     if (data?.success) {
@@ -28,7 +31,21 @@ const TicketDetailComp = () => {
     setSeverity(data?.data?.severity);
   }, [data]);
 
-  const handleDataUpdate = () => {};
+  const handleStatusUpdate = async (value) => {
+    setStatus(value);
+    const newBody = { ...ticketData, status: value };
+    try {
+      await updateTicket({ id, body: newBody });
+    } catch (error) {}
+  };
+
+  const handleSeverityUpdate = async (value) => {
+    setStatus(value);
+    const newBody = { ...ticketData, severity: value };
+    try {
+      await updateTicket({ id, body: newBody });
+    } catch (error) {}
+  };
 
   const handleAssignTicket = async () => {
     try {
@@ -39,26 +56,28 @@ const TicketDetailComp = () => {
   return (
     <TicketDataWrapper>
       <div className="ticket-buttons">
-        <Button
-          variant="contained"
-          disabled={ticketData?.isAssigned}
-          color={ticketData?.isAssigned ? "success" : "primary"}
-          onClick={handleAssignTicket}
-          className="ticket-assign-button"
-        >
-          {ticketData?.isAssigned ? (
-            "Assigned"
-          ) : isAssignLoading ? (
-            <ButtonLoader />
-          ) : (
-            "Assign to me"
-          )}
-        </Button>
+        {status === "pending" && (
+          <Button
+            variant="contained"
+            disabled={ticketData?.isAssigned}
+            color={ticketData?.isAssigned ? "secondary" : "primary"}
+            onClick={handleAssignTicket}
+            className="ticket-assign-button"
+          >
+            {ticketData?.isAssigned ? (
+              "Assigned"
+            ) : isAssignLoading ? (
+              <ButtonLoader />
+            ) : (
+              "Assign to me"
+            )}
+          </Button>
+        )}
         <ToggleButtonGroup
           value={status}
           exclusive
           aria-label="Status"
-          onChange={(e) => setStatus(e.target.value)}
+          onChange={(e) => handleStatusUpdate(e.target.value)}
         >
           <ToggleButton value="resolved" color="success">
             Resolved
@@ -72,7 +91,7 @@ const TicketDetailComp = () => {
           value={severity}
           exclusive
           aria-label="Severity"
-          onChange={(e) => setSeverity(e.target.value)}
+          onChange={(e) => handleSeverityUpdate(e.target.value)}
         >
           <ToggleButton value="generic" color="info">
             Generic

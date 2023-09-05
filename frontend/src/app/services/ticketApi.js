@@ -43,6 +43,18 @@ export const ticketApi = baseApi.injectEndpoints({
       invalidatesTags: (result, _error) =>
         result?.success ? ["SingleTicket"] : [],
     }),
+
+    updateTicket: builder.mutation({
+      query: ({ id, body }) => {
+        return {
+          url: `tickets/${id}`,
+          method: "PATCH",
+          body,
+        };
+      },
+      invalidatesTags: (result, _error) =>
+        result?.success ? ["SingleTicket"] : [],
+    }),
   }),
 });
 
@@ -51,4 +63,5 @@ export const {
   useGetAssignedTicketsQuery,
   useGetSingleTicketsQuery,
   useAssignTicketMutation,
+  useUpdateTicketMutation,
 } = ticketApi;
