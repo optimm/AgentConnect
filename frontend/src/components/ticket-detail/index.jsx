@@ -7,7 +7,7 @@ import {
   useGetSingleTicketsQuery,
   useUpdateTicketMutation,
 } from "../../app/services/ticketApi";
-import { ButtonLoader, RightPageLoader } from "../loader";
+import { ButtonLoader } from "../loader";
 import ChatComp from "../chat-component";
 import { useSelector } from "react-redux";
 
@@ -55,62 +55,58 @@ const TicketDetailComp = () => {
 
   return (
     <>
-      {isLoading || isFetching ? (
-        <RightPageLoader />
-      ) : (
-        <TicketDataWrapper>
-          <div className="ticket-buttons">
-            {status === "pending" && myData?.isAgent && (
-              <Button
-                variant="contained"
-                disabled={ticketData?.isAssigned}
-                color={ticketData?.isAssigned ? "secondary" : "primary"}
-                onClick={handleAssignTicket}
-                className="ticket-assign-button"
-              >
-                {ticketData?.isAssigned ? (
-                  "Assigned"
-                ) : isAssignLoading ? (
-                  <ButtonLoader />
-                ) : (
-                  "Assign to me"
-                )}
-              </Button>
-            )}
-            <ToggleButtonGroup
-              value={status}
-              exclusive
-              aria-label="Status"
-              onChange={(e) => handleStatusUpdate(e.target.value)}
-              disabled={!ticketData?.canUpdate}
+      <TicketDataWrapper>
+        <div className="ticket-buttons">
+          {status === "pending" && myData?.isAgent && (
+            <Button
+              variant="contained"
+              disabled={ticketData?.isAssigned}
+              color={ticketData?.isAssigned ? "secondary" : "primary"}
+              onClick={handleAssignTicket}
+              className="ticket-assign-button"
             >
-              <ToggleButton value="resolved" color="success">
-                Resolved
-              </ToggleButton>
-              <ToggleButton value="pending" color="warning">
-                Pending
-              </ToggleButton>
-            </ToggleButtonGroup>
+              {ticketData?.isAssigned ? (
+                "Assigned"
+              ) : isAssignLoading ? (
+                <ButtonLoader />
+              ) : (
+                "Assign to me"
+              )}
+            </Button>
+          )}
+          <ToggleButtonGroup
+            value={status}
+            exclusive
+            aria-label="Status"
+            onChange={(e) => handleStatusUpdate(e.target.value)}
+            disabled={!ticketData?.canUpdate}
+          >
+            <ToggleButton value="resolved" color="success">
+              Resolved
+            </ToggleButton>
+            <ToggleButton value="pending" color="warning">
+              Pending
+            </ToggleButton>
+          </ToggleButtonGroup>
 
-            <ToggleButtonGroup
-              value={severity}
-              exclusive
-              aria-label="Severity"
-              onChange={(e) => handleSeverityUpdate(e.target.value)}
-              disabled={myData?.isUser || !ticketData?.canUpdate}
-            >
-              <ToggleButton value="generic" color="info">
-                Generic
-              </ToggleButton>
-              <ToggleButton value="critical" color="error">
-                Critical
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </div>
-          <div className="ticket-title">{ticketData?.title}</div>
-          <ChatComp id={id} canUpdate={ticketData?.canUpdate} status={status} />
-        </TicketDataWrapper>
-      )}
+          <ToggleButtonGroup
+            value={severity}
+            exclusive
+            aria-label="Severity"
+            onChange={(e) => handleSeverityUpdate(e.target.value)}
+            disabled={myData?.isUser || !ticketData?.canUpdate}
+          >
+            <ToggleButton value="generic" color="info">
+              Generic
+            </ToggleButton>
+            <ToggleButton value="critical" color="error">
+              Critical
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </div>
+        <div className="ticket-title">{ticketData?.title}</div>
+        <ChatComp id={id} canUpdate={ticketData?.canUpdate} status={status} />
+      </TicketDataWrapper>
     </>
   );
 };
