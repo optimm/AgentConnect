@@ -19,12 +19,12 @@ const Ticket = ({ data }) => {
           <span>{data.owner.name}</span>
         </div>
 
-        <StatusIcon critical={data.severity === "critical"}>
+        <StatusIcon severity={data.severity}>
           <div className="status-dot" />
           <div className="status-text">{data.severity}</div>
         </StatusIcon>
 
-        <StatusIcon resolved={data.status === "resolved"}>
+        <StatusIcon status={data.status}>
           <div className="status-dot" />
           <div className="status-text">{data.status}</div>
         </StatusIcon>

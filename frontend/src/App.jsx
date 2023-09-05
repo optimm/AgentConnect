@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { FullScreenLoader } from "./components/loader";
 import { AuthRoutes } from "./routes/auth";
 import { DashboardRoutes } from "./routes/dashboard";
+import Home from "./pages/Home";
 
 function App() {
   const { data, isLoading, error, isFetching } = useCheckMyAuthQuery();
@@ -40,7 +41,7 @@ function App() {
       ) : (
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<>Hello</>} />
+            <Route path="/" element={<Home />} />
           </Routes>
           <AuthRoutes />
           <DashboardRoutes />

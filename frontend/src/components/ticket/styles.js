@@ -46,7 +46,11 @@ export const StatusIcon = styled.div`
   }
   .status-dot {
     background: ${(props) =>
-      props.resolved ? "green" : props.critical ? "red" : "yellow"};
+      props.status === "resolved"
+        ? "green"
+        : props.severity === "critical"
+        ? "red"
+        : "yellow"};
     height: 7px;
     width: 7px;
     border-radius: 50%;

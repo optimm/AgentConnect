@@ -12,14 +12,14 @@ export const ChatWrapper = styled.div`
 
 export const ChatInner = styled.div`
   padding: 20px;
-  height: calc(100% - 80px);
+  flex-grow: 1;
   overflow-y: auto;
 `;
 
 export const SendTextWrapper = styled.div`
   width: 100%;
   background-color: rgb(245, 245, 245);
-  height: 80px;
+  height: 100px;
   padding: 0 20px;
   display: flex;
   align-items: center;

@@ -28,6 +28,15 @@ export const DashboardRoutes = () => {
     }
   };
 
+  const GetWrappedComponent = ({ componentToRender }) => {
+    return (
+      <MainWrapper>
+        <SideBarComp role={myData.isAgent ? "agent" : "user"} />
+        <MainWrapperRight>{componentToRender}</MainWrapperRight>
+      </MainWrapper>
+    );
+  };
+
   const getDashboardRoute = () => {
     return (
       <Routes>
@@ -36,12 +45,30 @@ export const DashboardRoutes = () => {
             path="/dashboard/agent/*"
             element={
               <Routes>
-                <Route path="tickets" element={<AllTicketsPage />} />
+                <Route
+                  path="tickets"
+                  element={
+                    <GetWrappedComponent
+                      componentToRender={<AllTicketsPage />}
+                    />
+                  }
+                />
                 <Route
                   path="tickets/assigned"
-                  element={<AssignedTicketsPage />}
+                  element={
+                    <GetWrappedComponent
+                      componentToRender={<AssignedTicketsPage />}
+                    />
+                  }
                 />
-                <Route path="tickets/:id" element={<TicketDetailPage />} />
+                <Route
+                  path="tickets/:id"
+                  element={
+                    <GetWrappedComponent
+                      componentToRender={<TicketDetailPage />}
+                    />
+                  }
+                />
               </Routes>
             }
           />
@@ -50,9 +77,30 @@ export const DashboardRoutes = () => {
             path="/dashboard/user/*"
             element={
               <Routes>
-                <Route path="tickets" element={<AllTicketsPage />} />
-                <Route path="tickets/my" element={<AssignedTicketsPage />} />
-                <Route path="tickets/:id" element={<TicketDetailPage />} />
+                <Route
+                  path="tickets"
+                  element={
+                    <GetWrappedComponent
+                      componentToRender={<AllTicketsPage />}
+                    />
+                  }
+                />
+                <Route
+                  path="tickets/my"
+                  element={
+                    <GetWrappedComponent
+                      componentToRender={<AssignedTicketsPage />}
+                    />
+                  }
+                />
+                <Route
+                  path="tickets/:id"
+                  element={
+                    <GetWrappedComponent
+                      componentToRender={<TicketDetailPage />}
+                    />
+                  }
+                />
               </Routes>
             }
           />
@@ -62,11 +110,10 @@ export const DashboardRoutes = () => {
   };
 
   return (
-    <MainWrapper>
+    <>
       {checkAuthentication()}
       {handleUnauthorizedAccess()}
-      <SideBarComp role={myData.isAgent ? "agent" : "user"} />
-      <MainWrapperRight>{getDashboardRoute()}</MainWrapperRight>
-    </MainWrapper>
+      {getDashboardRoute()}
+    </>
   );
 };
