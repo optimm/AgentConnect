@@ -1,7 +1,8 @@
 import React from "react";
+import TicketDetailComp from "../components/ticket-detail";
 
 const TicketDetailPage = () => {
-  return <div>TicketDetail</div>;
+  return <TicketDetailComp />;
 };
 
 export default TicketDetailPage;

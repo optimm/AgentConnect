@@ -1,20 +1,13 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/Login";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./styles/index.css";
-import SignupPage from "./pages/Signup";
 import { Notification } from "./components/notification";
-import { useSelector } from "react-redux";
 import { useCheckMyAuthQuery } from "./app/services/authApi";
 import { useEffect, useState } from "react";
 import { FullScreenLoader } from "./components/loader";
-import AllTicketsPage from "./pages/AllTickets";
-import AssignedTicketsPage from "./pages/AssignedTickets";
-import TicketDetailPage from "./pages/TicketDetail";
-import SideBarAgent from "./components/sidebar/agent";
-import { MainWrapper, MainWrapperRight } from "./styles/globalStyle";
+import { AuthRoutes } from "./routes/auth";
+import { DashboardRoutes } from "./routes/dashboard";
 
 function App() {
-  const { isAuthenticated } = useSelector((state) => state.me);
   const { data, isLoading, error, isFetching } = useCheckMyAuthQuery();
   const [blankLoader, setBlankLoader] = useState(true);
   const [errState, setErrState] = useState(false);
@@ -46,38 +39,11 @@ function App() {
         </>
       ) : (
         <BrowserRouter>
-          {/* auth routes */}
           <Routes>
-            <Route path="/" element={<>Home</>} />
-            <Route path="/login/user" element={<LoginPage role="user" />} />
-            <Route path="/login/agent" element={<LoginPage role="agent" />} />
-            <Route path="/register/user" element={<SignupPage role="user" />} />
-            <Route
-              path="/register/agent"
-              element={<SignupPage role="agent" />}
-            />
+            <Route path="/" element={<>Hello</>} />
           </Routes>
-
-          {/* dashboard agent routes */}
-          <MainWrapper>
-            <SideBarAgent />
-            <MainWrapperRight>
-              <Routes>
-                <Route
-                  path="/dashboard/agent/tickets"
-                  element={<AllTicketsPage />}
-                />
-                <Route
-                  path="/dashboard/agent/tickets/assigned"
-                  element={<AssignedTicketsPage />}
-                />
-                <Route
-                  path="/dashboard/agent/tickets/:id"
-                  element={<TicketDetailPage />}
-                />
-              </Routes>
-            </MainWrapperRight>
-          </MainWrapper>
+          <AuthRoutes />
+          <DashboardRoutes />
         </BrowserRouter>
       )}
 

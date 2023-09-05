@@ -46,9 +46,17 @@ export const authApi = baseApi.injectEndpoints({
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
-          dispatch(authenticateMe({ isAuthenticated: true, data: data?.data }));
+          const role = data?.data?.role;
+          const isAgent = role === "agent";
+          const isUser = role === "user";
+          dispatch(
+            authenticateMe({
+              isAuthenticated: true,
+              data: { ...data?.data, isAgent, isUser },
+            })
+          );
         } catch (error) {
-          dispatch(authenticateMe({ isAuthenticated: false, myData: {} }));
+          dispatch(authenticateMe({ isAuthenticated: false, data: {} }));
         }
       },
     }),
