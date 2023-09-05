@@ -30,10 +30,10 @@ export const RightPageLoaderWrapper = styled.div`
 
 export const NoDataWrapper = styled.div`
   ${flexcv}
-  height: calc(90vh - 120px);
+  height: 100%;
   width: 100%;
   img {
-    height: 180px;
+    height: 30%;
   }
 `;
 

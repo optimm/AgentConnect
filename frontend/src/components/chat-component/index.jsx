@@ -6,11 +6,11 @@ import {
 } from "../../app/services/ticketApi";
 import { Button, TextField } from "@mui/material";
 import { BiSolidSend } from "react-icons/bi";
-import { ButtonLoader } from "../loader";
+import { ButtonLoader, Nodata } from "../loader";
 import { useSelector } from "react-redux";
+import { NoDataWrapper } from "../loader/styles";
 
 const ChatComp = ({ id, canUpdate = false, status }) => {
-  const { myData } = useSelector((state) => state.me);
   const [getMessages, { isLoading }] = useGetTicketMessagesMutation();
   const [sendMessage, { isLoading: isSendMessageLoading }] =
     useSendMessageMutation();
@@ -43,11 +43,17 @@ const ChatComp = ({ id, canUpdate = false, status }) => {
   return (
     <ChatWrapper>
       <ChatInner>
-        {messages?.map((item, index) => (
-          <ChatMessage ismine={item?.mine ? "true" : undefined} key={index}>
-            <div className="chat-message-inner">{item?.text}</div>
-          </ChatMessage>
-        ))}
+        {!messages || messages.length === 0 ? (
+          <Nodata />
+        ) : (
+          <>
+            {messages?.map((item, index) => (
+              <ChatMessage ismine={item?.mine ? "true" : undefined} key={index}>
+                <div className="chat-message-inner">{item?.text}</div>
+              </ChatMessage>
+            ))}
+          </>
+        )}
       </ChatInner>
       {canUpdate && status === "pending" && (
         <SendTextWrapper>
