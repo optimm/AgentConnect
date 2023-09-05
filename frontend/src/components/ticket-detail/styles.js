@@ -3,11 +3,12 @@ import styled from "styled-components";
 export const TicketDataWrapper = styled.div`
   width: 100%;
   display: flex;
+  max-height: 100%;
   height: 100%;
-  overflow: hidden;
   flex-direction: column;
-  gap: 30px;
+
   .ticket-title {
+    margin-top: 20px;
     font-size: 20px;
     color: var(--text-2);
     font-weight: 500;

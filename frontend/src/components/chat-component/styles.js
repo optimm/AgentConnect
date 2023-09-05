@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { flexcv } from "../../styles/globalStyle";
 
 export const ChatWrapper = styled.div`
+  margin-top: 20px;
   width: 100%;
   flex-grow: 1;
   background: var(--sepration);
@@ -11,19 +12,19 @@ export const ChatWrapper = styled.div`
 
 export const ChatInner = styled.div`
   padding: 20px;
-  flex: 1;
+  height: 82%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 `;
 
 export const SendTextWrapper = styled.div`
-  padding: 15px;
   width: 100%;
-  box-sizing: border-box;
+  height: 18%;
   background-color: rgb(245, 245, 245);
+  padding: 0 10px;
   display: flex;
+  align-items: center;
 
   .send-message-section {
     width: 85%;
@@ -38,7 +39,6 @@ export const SendTextWrapper = styled.div`
   }
   .reload-button {
     width: 80%;
-    height: 100%;
   }
   .send-message-input {
     width: 80%;
@@ -48,6 +48,7 @@ export const SendTextWrapper = styled.div`
 export const ChatMessage = styled.div`
   width: 100%;
   display: flex;
+  margin-top: 5px;
   justify-content: ${(props) =>
     props.ismine === "true" ? "flex-end" : "flex-start"};
   .chat-message-inner {
