@@ -2,11 +2,15 @@ import styled from "styled-components";
 
 export const TicketDataWrapper = styled.div`
   width: 100%;
+  display: flex;
+  height: 100%;
+  overflow: hidden;
+  flex-direction: column;
+  gap: 30px;
   .ticket-title {
     font-size: 20px;
     color: var(--text-2);
     font-weight: 500;
-    margin-top: 30px;
   }
   .ticket-buttons {
     width: 100%;
@@ -17,3 +21,5 @@ export const TicketDataWrapper = styled.div`
     width: 150px;
   }
 `;
+
+
