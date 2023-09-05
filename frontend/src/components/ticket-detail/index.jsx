@@ -57,7 +57,7 @@ const TicketDetailComp = () => {
     <>
       <TicketDataWrapper>
         <div className="ticket-buttons">
-          {status === "pending" && (
+          {status === "pending" && myData?.isAgent && (
             <Button
               variant="contained"
               disabled={ticketData?.isAssigned}

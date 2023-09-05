@@ -12,6 +12,7 @@ import SideBarComp from "./components/sidebar";
 import AllTicketsPage from "./pages/AllTickets";
 import AssignedTicketsPage from "./pages/AssignedTickets";
 import TicketDetailPage from "./pages/TicketDetail";
+import MyTickets from "./pages/MyTickets";
 
 function App() {
   const { data, isLoading, error, isFetching } = useCheckMyAuthQuery();
@@ -117,7 +118,7 @@ function App() {
                       path="tickets/my"
                       element={
                         <GetWrappedComponent
-                          componentToRender={<AssignedTicketsPage />}
+                          componentToRender={<MyTickets />}
                         />
                       }
                     />
