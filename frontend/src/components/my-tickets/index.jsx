@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { TicketsContainer } from "../all-tickets/styles";
 import Ticket from "../ticket";
-import { ButtonLoader } from "../loader";
+import { ButtonLoader, RightPageLoader } from "../loader";
 import { createNotification } from "../notification";
 
 const RaiseQueryModal = ({ open, setOpen }) => {
@@ -99,7 +99,7 @@ const MyTicketsComp = () => {
         </Button>
       </AddTicket>
       {isLoading || isFetching ? (
-        <></>
+        <RightPageLoader />
       ) : (
         <TicketsContainer>
           {data?.data?.map((item, index) => (

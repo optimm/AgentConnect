@@ -1,4 +1,5 @@
 import { useGetAllTicketsQuery } from "../../app/services/ticketApi";
+import { RightPageLoader } from "../loader";
 import Ticket from "../ticket";
 import { TicketsContainer } from "./styles";
 
@@ -8,7 +9,7 @@ const AllTicketsComponent = () => {
   return (
     <>
       {isLoading || isFetching ? (
-        <></>
+        <RightPageLoader />
       ) : (
         <TicketsContainer>
           {data?.data?.map((item, index) => (

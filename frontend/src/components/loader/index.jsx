@@ -1,19 +1,11 @@
 import React from "react";
 import {
-  AllUsersProjectsLoaders,
   ErrorPageWrapper,
   FullScreenLoaders,
-  LoadingCommentWrapper,
   NoDataWrapper,
-  PostDevLoadingWrapper,
-  ProfileLoadingWrapper,
+  RightPageLoaderWrapper,
 } from "./styles";
-import {
-  Discuss,
-  MagnifyingGlass,
-  ThreeDots,
-  Triangle,
-} from "react-loader-spinner";
+import { ThreeDots, Triangle } from "react-loader-spinner";
 
 export const FullScreenLoader = () => {
   return (
@@ -23,26 +15,9 @@ export const FullScreenLoader = () => {
   );
 };
 
-export const AllUsersProjectsLoader = () => {
+export const RightPageLoader = () => {
   return (
-    <AllUsersProjectsLoaders>
-      <MagnifyingGlass
-        visible={true}
-        height="120"
-        width="120"
-        ariaLabel="MagnifyingGlass-loading"
-        wrapperStyle={{}}
-        wrapperClass="MagnifyingGlass-wrapper"
-        glassColor="#c0efff"
-        color="var(--primary-color)"
-      />
-    </AllUsersProjectsLoaders>
-  );
-};
-
-export const ProfileLoader = () => {
-  return (
-    <ProfileLoadingWrapper>
+    <RightPageLoaderWrapper>
       <Triangle
         height="120"
         width="120"
@@ -52,41 +27,7 @@ export const ProfileLoader = () => {
         wrapperClassName=""
         visible={true}
       />
-    </ProfileLoadingWrapper>
-  );
-};
-
-export const PostOfDevLoader = () => {
-  return (
-    <PostDevLoadingWrapper>
-      <ThreeDots
-        height="60"
-        width="60"
-        radius="7"
-        color="var(--primary-color)"
-        ariaLabel="three-dots-loading"
-        wrapperStyle={{}}
-        wrapperClassName=""
-        visible={true}
-      />
-    </PostDevLoadingWrapper>
-  );
-};
-
-export const CommentLoader = () => {
-  return (
-    <LoadingCommentWrapper>
-      <Discuss
-        visible={true}
-        height="80"
-        width="80"
-        ariaLabel="comment-loading"
-        wrapperStyle={{}}
-        wrapperClass="comment-wrapper"
-        color="#fff"
-        backgroundColor="var(--primary-color)"
-      />
-    </LoadingCommentWrapper>
+    </RightPageLoaderWrapper>
   );
 };
 

@@ -22,27 +22,9 @@ export const FullScreenLoaders = styled.div`
   }
 `;
 
-export const AllUsersProjectsLoaders = styled.div`
-  height: calc(90vh - 120px);
+export const RightPageLoaderWrapper = styled.div`
+  height: 100%;
   width: 100%;
-  ${flexcv}
-`;
-
-export const ProfileLoadingWrapper = styled.div`
-  height: calc(100vh - 69px);
-  width: 100%;
-  ${flexcv}
-`;
-
-export const PostDevLoadingWrapper = styled.div`
-  height: 100px;
-  width: 100%;
-  ${flexcv}
-`;
-
-export const LoadingCommentWrapper = styled.div`
-  width: 100%;
-  height: 45vh;
   ${flexcv}
 `;
 
