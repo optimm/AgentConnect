@@ -41,12 +41,6 @@ const LoginComponent = ({ role }) => {
         setShowPassword(false);
         const data = await login({ body: { ...values, role } }).unwrap();
         resetForm();
-        dispatch(
-          authenticateMe({
-            isAuthenticated: true,
-            data: data?.data,
-          })
-        );
         createNotification(`Welcome ${data?.data?.name}`, "success", 2000);
         navigate(`/dashboard/${role}/tickets`);
       } catch (error) {}

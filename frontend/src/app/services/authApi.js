@@ -22,8 +22,17 @@ export const authApi = baseApi.injectEndpoints({
       },
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         const { data } = await queryFulfilled;
-        const { data: user } = data;
-        dispatch(authenticateMe({ isAuthenticated: true, data: user }));
+        const role = data?.data?.role;
+        const isAgent = role === "agent";
+        const isUser = role === "user";
+        const myData = { ...data?.data, isAgent, isUser };
+        console.log({ myData });
+        dispatch(
+          authenticateMe({
+            isAuthenticated: true,
+            data: myData,
+          })
+        );
       },
     }),
     logout: builder.mutation({

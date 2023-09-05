@@ -59,7 +59,19 @@ export const ticketApi = baseApi.injectEndpoints({
         };
       },
       invalidatesTags: (result, _error) =>
-        result?.success ? ["SingleTicket", "MyTickets", "AssignedTickets"] : [],
+        result?.success ? ["SingleTicket", "AssignedTickets"] : [],
+    }),
+
+    createTicket: builder.mutation({
+      query: ({ body }) => {
+        return {
+          url: `tickets`,
+          method: "POST",
+          body,
+        };
+      },
+      invalidatesTags: (result, _error) =>
+        result?.success ? ["AllTickets", "MyTickets"] : [],
     }),
 
     updateTicket: builder.mutation({
@@ -71,7 +83,9 @@ export const ticketApi = baseApi.injectEndpoints({
         };
       },
       invalidatesTags: (result, _error) =>
-        result?.success ? ["SingleTicket", "MyTickets", "AssignedTickets"] : [],
+        result?.success
+          ? ["AllTickets", "SingleTicket", "MyTickets", "AssignedTickets"]
+          : [],
     }),
 
     //send messages
@@ -96,4 +110,5 @@ export const {
   useGetTicketMessagesMutation,
   useSendMessageMutation,
   useGetMyTicketsQuery,
+  useCreateTicketMutation,
 } = ticketApi;
