@@ -50,7 +50,7 @@ const getTicket = async (req, res) => {
   }
   data = data.toObject();
   const canUpdate =
-    data.owner.toString() === userId.toString() ||
+    data.owner._id.toString() === userId.toString() ||
     (data.isAssigned && data.assigned.toString() === userId.toString());
   res
     .status(StatusCodes.OK)

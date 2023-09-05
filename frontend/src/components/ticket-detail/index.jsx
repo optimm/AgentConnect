@@ -105,7 +105,7 @@ const TicketDetailComp = () => {
           </ToggleButtonGroup>
         </div>
         <div className="ticket-title">{ticketData?.title}</div>
-        <ChatComp id={id} canUpdate={ticketData?.canUpdate} />
+        <ChatComp id={id} canUpdate={ticketData?.canUpdate} status={status} />
       </TicketDataWrapper>
     </>
   );
