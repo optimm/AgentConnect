@@ -48,7 +48,7 @@ const getTicketMessages = async (req, res) => {
     throw new NotFoundError("Ticket not found");
   }
 
-  let messages = await Message.find({ ticket: id }).sort("-timestamp");
+  let messages = await Message.find({ ticket: id }).sort("timestamp");
   messages = formatMessages(messages, userId);
 
   res.status(StatusCodes.OK).json({ success: true, data: messages });

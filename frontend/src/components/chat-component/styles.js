@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { flexcv } from "../../styles/globalStyle";
 
 export const ChatWrapper = styled.div`
   width: 100%;
@@ -18,22 +19,40 @@ export const ChatInner = styled.div`
 `;
 
 export const SendTextWrapper = styled.div`
-  height: 80px;
+  padding: 15px;
   width: 100%;
-  background: var(--primary-color-light);
+  box-sizing: border-box;
+  background-color: rgb(245, 245, 245);
   display: flex;
 
+  .send-message-section {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .send-message-button {
+    width: 18%;
+  }
+  .reload-button-section {
+    width: 15%;
+  }
   .reload-button {
+    width: 80%;
+    height: 100%;
+  }
+  .send-message-input {
+    width: 80%;
   }
 `;
 
 export const ChatMessage = styled.div`
   width: 100%;
   display: flex;
-  justify-content: ${(props) => (props.isMine ? "flex-end" : "flex-start")};
+  justify-content: ${(props) =>
+    props.ismine === "true" ? "flex-end" : "flex-start"};
   .chat-message-inner {
     padding: 10px;
     border-radius: 5px;
-    background: ${(props) => (props.isMine ? "#96C291" : "white")};
+    background: ${(props) => (props.ismine === "true" ? "#96C291" : "white")};
   }
 `;

@@ -1,5 +1,4 @@
 import { baseApi } from "./baseApi";
-import { authenticateMe } from "../../features/meSlice";
 
 export const ticketApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -23,14 +22,13 @@ export const ticketApi = baseApi.injectEndpoints({
       providesTags: ["SingleTicket"],
     }),
 
-    getTicketMessages: builder.query({
+    getTicketMessages: builder.mutation({
       query: ({ id }) => {
         return {
           url: `tickets/${id}/message`,
           method: "GET",
         };
       },
-      providesTags: ["TicketMessages"],
     }),
 
     getAssignedTickets: builder.query({
@@ -65,6 +63,17 @@ export const ticketApi = baseApi.injectEndpoints({
       invalidatesTags: (result, _error) =>
         result?.success ? ["SingleTicket"] : [],
     }),
+
+    //send messages
+    sendMessage: builder.mutation({
+      query: ({ id, body }) => {
+        return {
+          url: `tickets/${id}/message`,
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -74,5 +83,6 @@ export const {
   useGetSingleTicketsQuery,
   useAssignTicketMutation,
   useUpdateTicketMutation,
-  useGetTicketMessagesQuery,
+  useGetTicketMessagesMutation,
+  useSendMessageMutation,
 } = ticketApi;

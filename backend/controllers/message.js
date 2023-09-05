@@ -13,6 +13,15 @@ const sendMessage = async (req, res) => {
 
   const { userId } = req.user;
   const { text } = req.body;
+
+  if (
+    userId !== data.owner.toString() &&
+    data.isAssigned &&
+    userId !== data.assigned.toString()
+  ) {
+    throw new UnauthorizedError("Unauthorized to send a message");
+  }
+
   if (!text) {
     throw new BadRequestError("Empty Message");
   }
