@@ -30,13 +30,19 @@ const getAssignedTickets = async (req, res) => {
 
 const getTicket = async (req, res) => {
   const { id } = req.params;
+  const { userId } = req.user;
 
   let data = await Ticket.findById(id).populate("owner", "name email");
   if (!data) {
     throw new NotFoundError("Ticket not found");
   }
   data = data.toObject();
-  res.status(StatusCodes.OK).json({ success: true, data });
+  const canMessage =
+    data.owner.toString() === userId.toString() ||
+    (data.isAssigned && data.assigned.toString() === userId.toString());
+  res
+    .status(StatusCodes.OK)
+    .json({ success: true, data: { ...data, canMessage } });
 };
 
 const getTicketMessages = async (req, res) => {

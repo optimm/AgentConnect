@@ -7,8 +7,10 @@ import {
 import { Button, TextField } from "@mui/material";
 import { BiSolidSend } from "react-icons/bi";
 import { ButtonLoader } from "../loader";
+import { useSelector } from "react-redux";
 
-const ChatComp = ({ id }) => {
+const ChatComp = ({ id, canMessage = false }) => {
+  const { myData } = useSelector((state) => state.me);
   const [getMessages, { isLoading }] = useGetTicketMessagesMutation();
   const [sendMessage, { isLoading: isSendMessageLoading }] =
     useSendMessageMutation();
@@ -47,38 +49,40 @@ const ChatComp = ({ id }) => {
           </ChatMessage>
         ))}
       </ChatInner>
-      <SendTextWrapper>
-        <div className="reload-button-section">
-          <Button
-            variant="contained"
-            className="reload-button"
-            onClick={getAllMessages}
-          >
-            {isLoading ? <ButtonLoader /> : "Reload"}
-          </Button>
-        </div>
-        <div className="send-message-section">
-          <TextField
-            name="text"
-            label="Message"
-            variant="outlined"
-            color="primary"
-            className="send-message-input"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
+      {canMessage && (
+        <SendTextWrapper>
+          <div className="reload-button-section">
+            <Button
+              variant="contained"
+              className="reload-button"
+              onClick={getAllMessages}
+            >
+              {isLoading ? <ButtonLoader /> : "Reload"}
+            </Button>
+          </div>
+          <div className="send-message-section">
+            <TextField
+              name="text"
+              label="Message"
+              variant="outlined"
+              color="primary"
+              className="send-message-input"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
 
-          <Button
-            variant="contained"
-            className="send-message-button"
-            endIcon={isSendMessageLoading ? <></> : <BiSolidSend />}
-            disabled={!text || text === ""}
-            onClick={handleSendMessage}
-          >
-            {isSendMessageLoading ? <ButtonLoader /> : "Send"}
-          </Button>
-        </div>
-      </SendTextWrapper>
+            <Button
+              variant="contained"
+              className="send-message-button"
+              endIcon={isSendMessageLoading ? <></> : <BiSolidSend />}
+              disabled={!text || text === ""}
+              onClick={handleSendMessage}
+            >
+              {isSendMessageLoading ? <ButtonLoader /> : "Send"}
+            </Button>
+          </div>
+        </SendTextWrapper>
+      )}
     </ChatWrapper>
   );
 };
